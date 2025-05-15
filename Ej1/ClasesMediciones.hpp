@@ -1,7 +1,7 @@
 #pragma once
 #include <fstream>
-#include <memory>
 #include <iostream>
+#include <memory>
 
 class IMediciones {
 public:
@@ -16,8 +16,9 @@ class MedicionBase : public IMediciones {
     public:
         MedicionBase(float t);
         MedicionBase(const MedicionBase& other); //Este es el constructor de copia, que se usa para copiar el objeto.
-        ~MedicionBase() = default;
+        ~MedicionBase();
 
+        virtual void imprimir() const = 0;
         float getTiempo() const;
 };
 
@@ -28,7 +29,8 @@ class Presion : public MedicionBase {
     public:
         Presion(float p, float q, float t);
         Presion(const Presion& other); // Constructor de copia
-        ~Presion() = default;
+        ~Presion();
+        void imprimir() const override;
         void serializar(std::ostream& out) const override;
         void deserializar(std::istream& in) override;
 };
@@ -40,6 +42,9 @@ class Posicion : public MedicionBase {
         float altitud; //z
     public:
         Posicion(float x, float y, float z, float t);
+        Posicion(const Posicion& other);
+        ~Posicion();
+        void imprimir() const override;
         void serializar(std::ostream& out) const override;
         void deserializar(std::istream& in) override;
 };
@@ -50,6 +55,7 @@ class SaveFlightData {
         Presion presion;
     public:
         SaveFlightData(Posicion pos, Presion pres);
+        ~SaveFlightData();
         void serializar(std::ostream& out) const;
         void deserializar(std::istream& in);
         void imprimir() const;
