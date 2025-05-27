@@ -2,13 +2,14 @@
 
 ## Ejercicio 1
 
-Este ejercicio implementa un sistema de mediciones basado en clases abstractas y herencia, que permite serializar y deserializar datos binarios de distintas mediciones de un vuelo. 
+Este ejercicio implementa un sistema de mediciones basado en clases abstractas y herencia permitiendo serializar y deserializar datos binarios de distintas mediciones de un vuelo. 
 
-Las clases Presion y Posicion heredan de una clase base MedicionBase, y se utilizadan en la clase SaveFlightData para encapsular la información completa de una muestra de vuelo.
+Las clases Presion y Posicion heredan de una clase base MedicionBase, y son utilizadas en la clase SaveFlightData para encapsular la información completa.
 
 Para la serialización se utilizan las librerías <std::ostream> y <std::istream>.
 
-Dado que la consigna prohíbe el uso de std::move, se implementé una copia profunda de los datos apuntados por unique_ptr. Esto se logra creando una nueva instancia del valor (float) y asignándola a un nuevo unique_ptr.
+Dado que la consigna limita el uso de std::move, sustituí su uso haciendo una copia profunda de los datos apuntados por unique_ptr. Esto se logra creando una nueva instancia del valor y asignándola a un nuevo unique_ptr.
+Básicamente, se produce una copia de la referencia del unique_ptr.
 
 ### Archivos involucrados
 * ClasesMediciones.hpp: contiene las definiciones de las clases IMediciones, MedicionBase, Presion, Posicion y SaveFlightData.
@@ -23,7 +24,7 @@ Para compilar, usar el comando make por terminal y correr el codigo con <./nombr
 
 Este ejercicio implementa las siguientes clases para representar figuras geométricas:
 
-- Punto: representa una coordenada (x; y).
+- Punto: representa una coordenada (x ; y).
 - Círculo: definido por un centro (Punto) y un radio.
 - Elipse: definida por un centro (Punto), semieje mayor y semieje menor.
 - Rectángulo: definido por un vértice inferior izquierdo (Punto), ancho y largo.
@@ -31,7 +32,7 @@ Este ejercicio implementa las siguientes clases para representar figuras geomét
 
 ### Funcionalidad
 Cada clase incluye setters y getters para sus atributos. La clase ProcesadorFiguras implementa la función template calcularArea con especializaciones para calcular el área de cada figura geométrica:
-- Círculo: 𝜋 × 𝑟 × 2 
+- Círculo: 𝜋 × 𝑟^2 
 - Elipse: 𝜋 × 𝑎 × 𝑏
 - Rectángulo: 𝑎𝑛𝑐ℎ𝑜 × 𝑙𝑎𝑟𝑔𝑜
 - Para figuras no soportadas, devuelve 0.
@@ -50,18 +51,15 @@ Este ejercicio implementa una clase genérica para crear archivos JSON manualmen
 1. Clase ContenedorDatos<T>: 
     - Contiene un vector interno para almacenar elementos de tipo T.
     - Permite agregar elementos con el método agregar.
-    - Tiene un método procesar que imprime el contenido en formato JSON según el tipo:
-        Para double y string, imprime un arreglo JSON simple.
-        Para vector<int>, imprime arreglos anidados.
+    - Tiene un método procesar que imprime el contenido en formato JSON según el tipo.
     - Usa if constexpr para especializar la serialización según el tipo.
-    - Lanza error de compilación (static_assert) para tipos no soportados.
 
-2. Clase CrearJson
-    - Métodos para abrir (abrir) y cerrar (cerrar) un objeto JSON con { y }.
-    - Método asociar que recibe un contenedor de datos y un nombre, para imprimir una propiedad JSON con el arreglo serializado.
-    - Método imprimir para mostrar el contenido de un archivo JSON en un stream, útil para verificar el resultado.
+2. Clase CrearJson:
+    - Tiene los metodos "abrir" y "cerrar" que son para imprimir '{' y '}'.
+    - También, el método asociar que recibe un contenedor de datos y un nombre para imprimir los datos en el JSON. La misma usa el método procesar de la clase anterior.
+    - Por último, el método "imprimir" para mostrar el contenido de un archivo JSON en un stream.
 
-3. main.cpp
+3. main.cpp:
 * Crea instancias de ContenedorDatos para double, string y vector<int>.
 * Agrega datos de ejemplo a cada contenedor.
 * Crea un archivo datos.json usando CrearJson.
