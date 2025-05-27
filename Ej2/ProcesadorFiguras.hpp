@@ -4,11 +4,12 @@
 // Clase base
 template<typename T>
 class ProcesadorFigura {
-public: 
-    double calcularArea(const T&) const {
-        return 0.0;
-    }
+    public: 
+        double calcularArea(const T&) const {
+            return 0.0;
+        }
 };
+
 
 // Especializaciones
 template<>
@@ -35,9 +36,3 @@ public:
     }
 };
 
-// Función helper (añadida)
-template<typename T>
-double calcularArea(const T& figura) {
-    ProcesadorFigura<T> procesador;
-    return procesador.calcularArea(figura);
-}

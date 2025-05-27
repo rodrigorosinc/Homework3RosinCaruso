@@ -30,11 +30,9 @@ int main(){
     json.asociar(os, palabras, "palabras");
     json.asociar(os, listas, "listas", true);
     json.cerrar(os);
-    json.imprimir(os);
     os.close();
-
-
-    // IMPLEMENTAR LO DE IMPRIMIR EN PANTALLA
     
+    json.imprimir(cout, "datos.json");
+
     return 0;
 }   

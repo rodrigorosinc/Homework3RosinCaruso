@@ -4,7 +4,8 @@
 MedicionBase::MedicionBase(float t) {
     tiempoMedicion = std::make_unique<float>(t);
 }
-MedicionBase::MedicionBase(const MedicionBase& med) : tiempoMedicion(std::make_unique<float>(*med.tiempoMedicion)) {}
+MedicionBase::MedicionBase(const MedicionBase& med) :
+ tiempoMedicion(std::make_unique<float>(*med.tiempoMedicion)) {} // Creo la copia de la referencia del unique_ptr
 MedicionBase::~MedicionBase() = default;
 float MedicionBase::getTiempo() const {
     return *tiempoMedicion;
@@ -13,8 +14,8 @@ float MedicionBase::getTiempo() const {
 
 // Presion
 Presion::Presion(float p, float q, float t) : MedicionBase(t), presionEstatica(p), presionDinamica(q) {}
-Presion::Presion(const Presion& other) : MedicionBase(*other.tiempoMedicion),  presionEstatica(other.presionEstatica),
-                presionDinamica(other.presionDinamica) {}
+Presion::Presion(const Presion& other) : 
+MedicionBase(*other.tiempoMedicion),  presionEstatica(other.presionEstatica), presionDinamica(other.presionDinamica) {}
 Presion::~Presion() = default;
 
 void Presion::serializar(std::ostream& out) const {

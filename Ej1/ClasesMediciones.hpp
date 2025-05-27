@@ -59,5 +59,4 @@ class SaveFlightData {
         void serializar(std::ostream& out) const;
         void deserializar(std::istream& in);
         void imprimir() const;
-};   
-
+}; 
